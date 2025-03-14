@@ -1,5 +1,5 @@
 // Constants
-const int MAX_SENSOR_READING = 1023; //TODO: Adjust for real world values
+const int MAX_SENSOR_READING = 690; //TODO: Adjust for real world values
 
 
 // Variables
@@ -50,48 +50,68 @@ int calcError(int sensorReadings[])
 {
   switch (highestIndex) {
   case 0:
+    {
     // Front sensor has the highest value
-    if (sensorReadings[1] > sensorReadings[2]) // Light source is slightly left of the front sensor
-    {
-      int diff = sensorReadings[1] - sensorReadings[2];
-      int error = map(diff, 0, MAX_SENSOR_READING, 0, 100);
-      return error;
-    }
-    if (sensorReadings[2] > sensorReadings[1]) // Light source is slightly right of the front sensor
-    {
-      int diff = sensorReadings[2] - sensorReadings[1];
-      int error = map(diff, 0, MAX_SENSOR_READING, 0, -100);
-      return error;
-    }
-    else // Light source is exactly in the middle between sensor L1 and R1
-    {
-      return 0;
+    int diff = sensorReadings[1] - sensorReadings[2];
+    int maxDiff = MAX_SENSOR_READING;
+    int error = map(diff, -maxDiff, maxDiff, -100, 100);
+    return error;
     }
   case 1:
+    {
     // Left sensor 1 has the highest value
-    return 100;
+    int diff = sensorReadings[3] - sensorReadings[0];
+    int maxDiff = MAX_SENSOR_READING;
+    int error = map(diff, -maxDiff, maxDiff, 100, 300);
+    return error;
+    }
   case 2:
+    {
     // Right sensor 1 has the highest value
-    return -100;
+    int diff = sensorReadings[4] - sensorReadings[0];
+    int maxDiff = MAX_SENSOR_READING;
+    int error = map(diff, -maxDiff, maxDiff, -100, -300);
+    return error;
+    }
   case 3:
+    {
     // Left sensor 2 has the highest value
-    return 200;
+    int diff = sensorReadings[5] - sensorReadings[1];
+    int maxDiff = MAX_SENSOR_READING;
+    int error = map(diff, -maxDiff, maxDiff, 300, 500);
+    return error;
+    }
   case 4:
+    {
     // Right sensor 2 has the highest value
-    return -200;
+    int diff = sensorReadings[5] - sensorReadings[2];
+    int maxDiff = MAX_SENSOR_READING;
+    int error = map(diff, -maxDiff, maxDiff, -300, -500);
+    return error;
+    }
   case 5:
+    {
     // Back sensor has the highest value
     if (sensorReadings[3] > sensorReadings[4]) //Light source is slightly left of the back sensor
     {
-      return 300;
+      int diff = sensorReadings[3] - sensorReadings[4];
+      int maxDiff = MAX_SENSOR_READING;
+      int error = map(diff, 0, maxDiff, 600, 500);
+      return error;
     }
     else //Light source is slightly right of the back sensor
     {
-      return -300;
+      int diff = sensorReadings[4] - sensorReadings[3];
+      int maxDiff = MAX_SENSOR_READING;
+      int error = map(diff, 0, maxDiff, -600, -500);
+      return error;
+    }
     }
   default:
+    {
     Serial.println("Unknown sensor index");
     return 0;
+    }
   }
 }
 
