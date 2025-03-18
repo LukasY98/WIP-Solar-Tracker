@@ -195,5 +195,5 @@ void loop()
   printData(error, derivative, output);
   
   lastError = error;
-  delay(4000);
+  delay(10); //increase for testing
 }
