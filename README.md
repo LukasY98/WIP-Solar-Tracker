@@ -25,7 +25,11 @@ This project implements a single-axis solar tracker that uses Light Dependent Re
 
 ## Wiring
 
-See wiring.png //TODO
+See wiring.png
+
+## Hardware Setup
+
+See setup.png and LDR_setup.png
 
 ## Software
 
